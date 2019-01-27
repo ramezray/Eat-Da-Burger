@@ -19,9 +19,15 @@ router.post('/burger/create', function (req, res) {
 });
 
 router.post('/burger/eat/:id', function (req, res) {
-    burger.updateOne(req.params.id, function () {
-        res.redirect('/');
-    });
+  burger.updateOne(req.params.id, function () {
+    res.redirect('/');
+  });
 });
+
+
+
+
+
+
 
 module.exports = router;
