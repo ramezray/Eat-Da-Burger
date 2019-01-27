@@ -5,3 +5,12 @@ This app will allow user to add his/her favorite burger and be able by just clic
 
 # Screen Shot:
 ![](/public/assets/img/appSS.JPG)
+
+# Technologies used:
+* Node JS
+* Express JS
+* MYSQL
+* Handlebars
+ # Author
+ *Ray Wasif*
+
