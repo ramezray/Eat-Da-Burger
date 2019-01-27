@@ -1,14 +1,11 @@
 //Our Object Relational Mapping between DB and the rest of the APP.
 let connection = require("./connection.js");
-const style = require("chalk");
 
 let orm = {
     selectAll: function (cb) {
         let queryString = "select * from burgers";
         connection.query(queryString, (err, result) => {
             if (err) throw err;
-            console.log(style.bgGreen("Connected!!"))
-            console.table(result)
             cb(result)
         })
     },
