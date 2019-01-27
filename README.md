@@ -4,4 +4,4 @@ This app will allow user to add his/her favorite burger and be able by just clic
 # Herouk Link:
 
 # Screen Shot:
-![](imge/appSS.JPG)
+![](public/assets/imge/appSS.JPG)
