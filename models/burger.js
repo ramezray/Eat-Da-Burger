@@ -3,21 +3,28 @@ let orm = require("../config/orm.js");
 
 //store our keys and values on ver burger
 let burger = {
-    insertOne: function () {
-        orm.insertOne("burgers", "burger_name", "devoured", "BIGBIG_Mac", false)
+    selectAll: function (cb) {
+        orm.selectAll(function (res) {
+            cb(res);
+        });
     },
-
-    updateOne: function () {
-        orm.updateOne("burgers", "devoured", true, "id", "4")
+    insertOne: function (burger_name, cb) {
+        orm.insertOne(burger_name, function (res) {
+            cb(res);
+        });
     },
-    selectAll: function () {
-        orm.selectAll("burgers")
+    updateOne: function (id, cb) {
+        orm.updateOne(id, function (res) {
+            cb(res);
+        });
+    },
+    deleteOne: function (condition, cb) {
+        orm.delete("burgers", condition, function (res) {
+            cb(res);
+        });
     }
-}
-// console.log("burgers_controllers.js is connected");
-// console.table(queries);
 
+};
 
-// burger.selectAll("burgers");
 
 module.exports = burger;

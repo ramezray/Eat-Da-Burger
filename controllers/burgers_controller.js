@@ -1,23 +1,27 @@
 const express = require("express");
 const burger = require("../models/burger.js");
 const router = express.Router();
-let connection = require("../config/connection.js");
 
 
-router.get("/", (req, res) => {
-    
-    connection.query("SELECT * FROM burgers", function (err, data) {
-        
-        if (err) {
-            return res.status(500).end();
-        }
-
-        res.render("index", {burger:data})
-
+router.get("/", function (req, res) {
+    burger.selectAll(function (data) {
+        let hbsObject = {
+            burgers: data
+        };
+        res.render("index", hbsObject)
     })
-})
+});
 
+router.post('/burger/create', function (req, res) {
+    burger.insertOne(req.body.burger_name, function () {
+        res.redirect('/index');
+    });
+});
 
-
+router.post('/burger/eat/:id', function (req, res) {
+    burger.updateOne(req.params.id, function () {
+        res.redirect('/index');
+    });
+});
 
 module.exports = router;

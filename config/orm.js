@@ -3,30 +3,48 @@ let connection = require("./connection.js");
 const style = require("chalk");
 
 let orm = {
-    selectAll: (table_Name) => {
-        let queryString = "select * from ??";
-        connection.query(queryString, [table_Name], (err, result) => {
+    selectAll: function (cb) {
+        let queryString = "select * from burgers";
+        connection.query(queryString, (err, result) => {
             if (err) throw err;
             console.log(style.bgGreen("Connected!!"))
             console.table(result)
+            cb(result)
         })
     },
-    insertOne: (table_name, first_column_name,  second_column_name, first_val, second_val) => {
-        let queryString = "INSERT INTO ?? (??, ??) VALUES (?,?)";
-        connection.query(queryString, [table_name, first_column_name,  second_column_name, first_val, second_val], (err, result) => {
-            if (err) throw err;
-            console.log(style.bgGreen("New data inserted!!"))
-        })
+    insertOne: function (burger_name, cb) {
+        connection.query('INSERT INTO burgers SET ?', {
+                burger_name: burger_name,
+                devoured: false,
+            },
+            function (err, result) {
+                if (err) throw err;
+                cb(result);
+            });
 
     },
-    updateOne :  (table_name, column_name, first_val,ID, ID_num) => {
-        let queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?;";
-        connection.query(queryString, [table_name, column_name, first_val,ID, ID_num], (err, result) => {
-            if (err) throw err;
-            console.log(style.bgGreen("New data updated!!"))
-        })
+    updateOne: function(ID, cb)
+	{
+		connection.query('UPDATE burgers SET ? WHERE ?', [{devoured: true}, {id: ID}],
+			function(err, result)
+			{
+				if (err) throw err;
+				cb(result);
+			});
+	},
+    deleteOne: function (table, condition, cb) {
+        var queryString = "DELETE FROM " + table;
+        queryString += " WHERE ";
+        queryString += condition;
 
+        connection.query(queryString, function (err, result) {
+            if (err) {
+                throw err;
+            }
+            cb(result);
+        });
     }
+
 }
 
 

@@ -1,35 +1,52 @@
 <div class="container col-sm-12 row">
-    <div class="container col-sm-3">
-        
-            {{#each burger}}
-            <span id="card"  class="card text-center mt-4">
-                <p><span class="label">ID: </span> {{this.id}}</p>
-                <p><span class="label">Burger Name: </span> {{this.burger_name}}</p>
-                <button type="button" class="btn btn-danger btn-sm"> Devoured</button>
-            </span>
+    <!-- Left side (Burgers Available) -->
+    <div class="col-sm-4">
+        <h3 class="submitFont">Burgers Ready to Devour</h3>
+        <div id="burgersAvailable">
+            {{#each burgers}}
+            {{#unless devoured}}
+            <form action="burger/eat/{{id}}" method="POST">
+                <ul class="input-group">
+                    <li class="form-control">{{id}}. {{burger_name}}</li>
+                        <p class="input-group-btn">
+                            <button class="btn btn-danger devour-button" type="submit">Devour It!</button>
+                        </p>
+                </ul>
+
+            </form>
+            {{/unless}}
             {{/each}}
-        
-    </div>
 
-    <div class="container col-sm-3 text-center mt-5">
-        <h1 class="text-danger">Ray's Burger</h1>
-        <img id="main_img" src="assets/img/burger.png" alt="burger image">
-        <form>
-            <div class="form-group">
-                <label for="new_burger">Enter Name of Your Burger</label>
-                <input class="form-control" id="new_burger" placeholder="YAMMMMMMMMMMMMMMMMMMMM! ">
+        </div>
+    </div>
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-4">
+        <h3 class="submitFont">Burgers Devoured</h3>
+        <div id="alreadyEaten">
+            {{#each burgers}}
+            {{#if this.devoured}}
+            <div class="input-group">
+                <li class="form-control">{{this.id}}. {{this.burger_name}}</li>
             </div>
-            <button formaction="/ray" type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+            {{/if}}
+            {{/each}}
 
-    <div class="container col-sm-3">
-        
+        </div>
     </div>
 </div>
 
+<div class="container col-md-12">
+    <div class="container col-sm-3 text-center mt-5">
+        <h1 class="text-danger">Ray's Burger</h1>
+        <img id="main_img" src="assets/img/burger.png" alt="burger image">
+        <form action="burger/create" method="POST">
+            <div class="form-group">
+                <label for="new_burger">Enter Name of Your Burger</label>
+                <input class="form-control" id="new_burger"  name="burger_name" placeholder="YAMMMMMMMMMMMMMMMMMMMM! ">
+            </div>
+            <button id="submit-button" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 
-
-
-
-
+</div>
