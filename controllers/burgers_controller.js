@@ -14,13 +14,13 @@ router.get("/", function (req, res) {
 
 router.post('/burger/create', function (req, res) {
     burger.insertOne(req.body.burger_name, function () {
-        res.redirect('/index');
+        res.redirect('/');
     });
 });
 
 router.post('/burger/eat/:id', function (req, res) {
     burger.updateOne(req.params.id, function () {
-        res.redirect('/index');
+        res.redirect('/');
     });
 });
 
